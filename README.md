@@ -1,3 +1,5 @@
+![left](http://24.media.tumblr.com/tumblr_lxb4dnHoSu1qfr9vzo1_400.gif)
+
 ### bmo-api
 bmo-api provides a simple web api to interact with your arduino.
 
