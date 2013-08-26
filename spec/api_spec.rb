@@ -21,8 +21,6 @@ describe 'Api' do
       led.should_receive :on
 
       get '/leds/on/13'
-
-      expect(last_response.body).to eq 'Turned on led at pin 13'
     end
 
     it 'turns off' do
@@ -30,8 +28,6 @@ describe 'Api' do
       led.should_receive :off
 
       get '/leds/off/12'
-
-      expect(last_response.body).to eq 'Turned off led at pin 12'
     end
 
     context 'fade' do
@@ -48,8 +44,6 @@ describe 'Api' do
         app.any_instance.should_receive(:sleep).exactly(256).times.with 0.01
 
         put 'leds/fade_in/11'
-
-        expect(last_response.body).to eq 'Faded in led at pin 11'
       end
 
       it 'fades in with a given sleep time' do
@@ -59,8 +53,6 @@ describe 'Api' do
         app.any_instance.should_receive(:sleep).exactly(256).times.with 0.03
 
         put 'leds/fade_in/11', { sleep: 0.03 }
-
-        expect(last_response.body).to eq 'Faded in led at pin 11'
       end
 
       it 'fades out' do
@@ -70,8 +62,6 @@ describe 'Api' do
         app.any_instance.should_receive(:sleep).exactly(256).times.with 0.01
 
         put 'leds/fade_out/11'
-
-        expect(last_response.body).to eq 'Faded out led at pin 11'
       end
 
       it 'fades out with a given sleep time' do
@@ -81,16 +71,12 @@ describe 'Api' do
         app.any_instance.should_receive(:sleep).exactly(256).times.with 0.03
 
         put 'leds/fade_out/11', { sleep: 0.03 }
-
-        expect(last_response.body).to eq 'Faded out led at pin 11'
       end
 
       it 'fades to a given value' do
         board.should_receive(:analog_write).with '11', '100'
 
         put 'leds/fade/11', { to: 100 }
-
-        expect(last_response.body).to eq 'Faded led at pin 11 to value 100'
       end
     end
   end
