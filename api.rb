@@ -17,6 +17,30 @@ get '/leds/off/:pin' do
   "Turned off led at pin #{params[:pin]}"
 end
 
+put '/leds/fade_in/:pin' do
+  0.upto(255) { |to|
+    settings.board.analog_write params[:pin], to
+    sleep (params[:sleep] || 0.01).to_f
+  }
+
+  "Faded in led at pin #{params[:pin]}"
+end
+
+put '/leds/fade_out/:pin' do
+  255.downto(0) { |to|
+    settings.board.analog_write params[:pin], to
+    sleep (params[:sleep] || 0.01).to_f
+  }
+
+  "Faded out led at pin #{params[:pin]}"
+end
+
+put '/leds/fade/:pin' do
+  settings.board.analog_write params[:pin], params[:to]
+
+  "Faded led at pin #{params[:pin]} to value #{params[:to]}"
+end
+
 private
 
 def led pin
